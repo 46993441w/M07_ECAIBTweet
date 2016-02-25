@@ -46,10 +46,17 @@
                             <form ng-submit="addMessage()">
                                 <input ng-model="user" type="text" placeholder="Username">
                                 <br>
-                                <input ng-model="message" type="text" placeholder="Missatge">
+                                <input ng-model="message" type="text" ng-change="disableButton()" placeholder="Missatge">
 
-                                <input value="Afegir Missatge" type="submit">
+                                <input value="Afegir Missatge" ng-disabled="disabled" type="submit"  >
                             </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <ul>
+                                <li ng-repeat="user in usuaris"><b>{{ user.name }}</b>: {{ user.description }}</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
