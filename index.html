@@ -25,18 +25,38 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-offset-3 col-sm-9">
+                <div class="col-xs-3">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <form ng-submit="addUser()">
+                                <input ng-model="username" ng-change="userid(username)" type="text" placeholder="Username">
+                                <br>
+                                <input ng-model="users.name" type="text" placeholder="Nom">
+                                <br>
+                                <input ng-model="users.description" type="text" placeholder="Descripció">
+
+                                <input value="Afegir Usuari" type="submit">
+                            </form>
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <form ng-submit="addMessage()">
+                                <input ng-model="user" type="text" placeholder="Username">
+                                <br>
+                                <input ng-model="message" type="text" placeholder="Missatge">
+
+                                <input value="Afegir Missatge" type="submit">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-9">
                     <ul class="chatbox">
                         <li ng-repeat="message in messages"><b>{{ message.user }}</b>: {{ message.text }}</li>
                     </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-offset-3 col-sm-9">
-                    <form ng-submit="addMessage()">
-                        <input ng-model="message" type="text">
-                        <input value="Afegir Missatge" type="submit">
-                    </form>
                 </div>
             </div>
         </div>

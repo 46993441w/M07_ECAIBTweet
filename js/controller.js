@@ -1,21 +1,16 @@
-app.controller("controlador", ["$scope", "chatMessages",
+app.controller("controlador", ["$scope", "chatMessages","UsersAdd", "Users",
     // we pass our new chatMessages factory into the controller
-    function($scope, chatMessages) {
+    function($scope, chatMessages, UsersAdd, Users) {
         $scope.user = "David Juez";
 
-        // we add chatMessages array to the scope to be used in our ng-repeat
         $scope.messages = chatMessages;
+        $scope.users = Users;
 
-        // a method to create new messages; called by ng-submit
         $scope.addMessage = function() {
-            // calling $add on a synchronized array is like Array.push(),
-            // except that it saves the changes to our database!
             $scope.messages.$add({
                 user: $scope.user,
                 text: $scope.message
             });
-
-            // reset the message input
             $scope.message = "";
         };
 
@@ -28,5 +23,13 @@ app.controller("controlador", ["$scope", "chatMessages",
                 });
             }
         });
+
+        $scope.addUser = function() {
+            $scope.users.$save();
+        }
+
+        $scope.userid = function(username){
+            $scope.users = UsersAdd(username);
+        }
     }
 ]);
