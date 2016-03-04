@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" ng-app="ECAIBTweet">
     <head>
         <meta charset="UTF-8">
         <title>ECAIBTweet</title>
@@ -17,8 +17,48 @@
         <script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
         <link rel="stylesheet" href="css/style.css">
     </head>
-    <body ng-app="ECAIBTweet" ng-controller="controlador">
-        <div class="container">
+    <body ng-controller="controlador">
+        <div class="container text-center {{ nologeado }}">
+            <div class="row">
+                <div>
+                    <h1>Tweets Classe</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <form class="form-horizontal" ng-submit="login(usernamelogin)">
+                        <div class="form-group">
+                            <input ng-model="usernamelogin" type="text" placeholder="Username">
+                        </div>
+                        <div class="form-group">
+                            <input value="Connectar-te" type="submit"  >
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <form class="form-horizontal" ng-submit="addUser()">
+                        <h1>Afegir Usuari</h1>
+
+                        <div class="form-group">
+                            <input ng-model="username" ng-change="userid(username)" type="text" placeholder="Username">
+                        </div>
+                        <div class="form-group">
+                            <input ng-model="users.name" type="text" placeholder="Nom">
+                        </div>
+                        <div class="form-group">
+                            <input ng-model="users.description" type="text" placeholder="Descripció">
+                        </div>
+                        <div class="form-group">
+                            <input value="Afegir Usuari" type="submit">
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="container {{ logeado }}">
             <div class="row">
                 <div class="text-center">
                     <h1>Tweets Classe</h1>
@@ -28,21 +68,6 @@
                 <div class="col-xs-3">
                     <div class="row">
                         <div class="col-xs-12">
-                            <form ng-submit="addUser()">
-                                <input ng-model="username" ng-change="userid(username)" type="text" placeholder="Username">
-                                <br>
-                                <input ng-model="users.name" type="text" placeholder="Nom">
-                                <br>
-                                <input ng-model="users.description" type="text" placeholder="Descripció">
-
-                                <input value="Afegir Usuari" type="submit">
-                            </form>
-
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-xs-12">
                             <form ng-submit="addMessage()">
                                 <input ng-model="user" type="text" placeholder="Username">
                                 <br>
@@ -50,6 +75,25 @@
 
                                 <input value="Afegir Missatge" ng-disabled="disabled" type="submit"  >
                             </form>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <form ng-submit="addMessage()">
+                                <select>
+                                    <option>Seguir a alguien</option>
+                                    <option ng-repeat="user in usuaris" value="{{user.$id}}"><b>{{ user.name }}</b></option>
+                                </select>
+                                <br>
+
+                                <input value="Afegir Seguidor" type="submit"  >
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+
                         </div>
                     </div>
                     <div class="row">

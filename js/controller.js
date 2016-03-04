@@ -2,6 +2,9 @@ app.controller("controlador", ["$scope", "chatMessages","UsersAdd", "Users","cha
     // we pass our new chatMessages factory into the controller
     function($scope, chatMessages, UsersAdd, Users,chatMessagesPersonal) {
         $scope.disabled= true;
+        $scope.nologeado = "";
+        $scope.logeado = "hidden";
+        $scope.userConnect = "";
 
         $scope.messages = chatMessages;
         $scope.messagesPersonal = chatMessagesPersonal('djl');
@@ -36,21 +39,34 @@ app.controller("controlador", ["$scope", "chatMessages","UsersAdd", "Users","cha
 
         $scope.addUser = function() {
             $scope.users.$save();
-        }
+        };
 
         $scope.userid = function(username){
             $scope.users = UsersAdd(username);
-        }
+        };
 
         $scope.usernameID = function(username){
             $scope.messagesPersonal = chatMessagesPersonal(username);
-        }
+        };
 
         $scope.disableButton = function () {
             if($scope.message == ''){
                 $scope.disabled = true;
             } else {
                 $scope.disabled = false;
+            }
+        };
+
+        // index function
+        $scope.login = function(username){
+            for(var i = 0; i < $scope.usuaris.length; i++){
+                var aux = $scope.usuaris[i];
+                if( aux.$id == username){
+                    $scope.logeado = "";
+                    $scope.nologeado = "hidden";
+                    $scope.userConnect = username;
+                    $scope.usernameID(username);
+                }
             }
         }
     }
