@@ -69,10 +69,9 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <form ng-submit="addMessage()">
-                                <input ng-model="user" type="text" placeholder="Username">
+                                <!--<input ng-model="user" type="text" placeholder="Username">-->
                                 <br>
                                 <input ng-model="message" type="text" ng-change="disableButton()" placeholder="Missatge">
-
                                 <input value="Afegir Missatge" ng-disabled="disabled" type="submit"  >
                             </form>
                         </div>
@@ -80,13 +79,11 @@
                     <br>
                     <div class="row">
                         <div class="col-xs-12">
-                            <form ng-submit="addMessage()">
-                                <select>
-                                    <option>Seguir a alguien</option>
-                                    <option ng-repeat="user in usuaris" value="{{user.$id}}"><b>{{ user.name }}</b></option>
+                            <form ng-submit="addFollow()">
+                                <select ng-model="newFollower">
+                                    <option ng-repeat="user in usuaris" value="{{user.$id}}">{{ user.name }}</option>
                                 </select>
                                 <br>
-
                                 <input value="Afegir Seguidor" type="submit"  >
                             </form>
                         </div>
@@ -99,12 +96,18 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <ul>
-                                <li ng-repeat="user in usuaris"><b>{{ user.name }}</b>: {{ user.description }}</li>
+                                <li ng-repeat="user in followers"><b>{{ user.idUser }}</b></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-9">
+                    <h1>Els Meus tweets i els dels que segueixo</h1>
+                    <ul class="chatbox">
+                        <li ng-repeat="message in messagesFollowers"><b>{{ message.user }}</b>: {{ message.text }}</li>
+                    </ul>
+                    <hr>
+                    <h1>Tots Els Tweets</h1>
                     <ul class="chatbox">
                         <li ng-repeat="message in messages"><b>{{ message.user }}</b>: {{ message.text }}</li>
                     </ul>
