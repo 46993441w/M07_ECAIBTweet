@@ -47,6 +47,7 @@ app.controller("controlador", ["$scope", "chatMessages", "UsersAdd", "Users", "c
             $scope.followers.$add({
                 idUser: $scope.newFollower
             });
+            $scope.tweetsFollowers($scope.userConnectTotal);
         };
 
         $scope.userid = function(username){
