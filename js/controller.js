@@ -1,6 +1,6 @@
-app.controller("controlador", ["$scope", "chatMessages","UsersAdd", "Users","chatMessagesPersonal",
+app.controller("controlador", ["$scope", "chatMessages", "UsersAdd", "Users", "chatMessagesPersonal", "UserFollowers",
     // we pass our new chatMessages factory into the controller
-    function($scope, chatMessages, UsersAdd, Users,chatMessagesPersonal) {
+    function($scope, chatMessages, UsersAdd, Users,chatMessagesPersonal, UserFollowers) {
         $scope.disabled= true;
         $scope.nologeado = "";
         $scope.logeado = "hidden";
@@ -9,11 +9,12 @@ app.controller("controlador", ["$scope", "chatMessages","UsersAdd", "Users","cha
         $scope.messages = chatMessages;
         $scope.messagesPersonal = chatMessagesPersonal('djl');
         $scope.usuaris = Users;
+        $scope.followers = UserFollowers('djl');
 
         $scope.addMessage = function() {
             for(var i = 0; i < $scope.usuaris.length; i++){
                 var aux = $scope.usuaris[i];
-                if( aux.$id == $scope.user){
+                if( aux.$id == $scope.userConnect){
                     $scope.messages.$add({
                         user: aux.name,
                         text: $scope.message
@@ -41,12 +42,19 @@ app.controller("controlador", ["$scope", "chatMessages","UsersAdd", "Users","cha
             $scope.users.$save();
         };
 
+        $scope.addFollow = function(){
+            $scope.followers.$add({
+                idUser: $scope.newFollower
+            });
+        };
+
         $scope.userid = function(username){
             $scope.users = UsersAdd(username);
         };
 
         $scope.usernameID = function(username){
             $scope.messagesPersonal = chatMessagesPersonal(username);
+            $scope.followers = UserFollowers(username);
         };
 
         $scope.disableButton = function () {
@@ -59,6 +67,7 @@ app.controller("controlador", ["$scope", "chatMessages","UsersAdd", "Users","cha
 
         // index function
         $scope.login = function(username){
+            var aux = null;
             for(var i = 0; i < $scope.usuaris.length; i++){
                 var aux = $scope.usuaris[i];
                 if( aux.$id == username){
@@ -66,6 +75,32 @@ app.controller("controlador", ["$scope", "chatMessages","UsersAdd", "Users","cha
                     $scope.nologeado = "hidden";
                     $scope.userConnect = username;
                     $scope.usernameID(username);
+                    $scope.messagesFollowers = [];
+                    for(var tweetsSeguido in aux.tweets){
+                        if(tweetsSeguido != null) {
+                            $scope.messagesFollowers.push({
+                                "user": aux.name,
+                                "text": aux.tweets[tweetsSeguido].text
+                            });
+                        }
+                    }
+                    break;
+                }
+            }
+            for (var usuariSeguido in aux.following) {
+                var userNameSeguido = aux.following[usuariSeguido].idUser;
+                for(var j = 0; j < $scope.usuaris.length; j++) {
+                    var aux2 = $scope.usuaris[j];
+                    if( aux2.$id == userNameSeguido ) {
+                        for(var tweetsSeguido in aux2.tweets){
+                            if(tweetsSeguido != null) {
+                                $scope.messagesFollowers.push({
+                                    "user": aux2.name,
+                                    "text": aux2.tweets[tweetsSeguido].text
+                                });
+                            }
+                        }
+                    }
                 }
             }
         }
