@@ -22,6 +22,7 @@ app.controller("controlador", ["$scope", "chatMessages", "UsersAdd", "Users", "c
                     $scope.messagesPersonal.$add({
                         text: $scope.message
                     });
+                    $scope.tweetsFollowers($scope.userConnectTotal);
                     $scope.message = "";
                     $scope.disabled = true;
                 }
@@ -68,23 +69,28 @@ app.controller("controlador", ["$scope", "chatMessages", "UsersAdd", "Users", "c
         // index function
         $scope.login = function(username){
             var aux = null;
-            for(var i = 0; i < $scope.usuaris.length; i++){
+            for(var i = 0; i < $scope.usuaris.length; i++) {
                 var aux = $scope.usuaris[i];
-                if( aux.$id == username){
+                if (aux.$id == username) {
                     $scope.logeado = "";
                     $scope.nologeado = "hidden";
                     $scope.userConnect = username;
                     $scope.usernameID(username);
-                    $scope.messagesFollowers = [];
-                    for(var tweetsSeguido in aux.tweets){
-                        if(tweetsSeguido != null) {
-                            $scope.messagesFollowers.push({
-                                "user": aux.name,
-                                "text": aux.tweets[tweetsSeguido].text
-                            });
-                        }
-                    }
+                    $scope.tweetsFollowers(aux);
+                    $scope.userConnectTotal = aux;
                     break;
+                }
+            }
+        };
+
+        $scope.tweetsFollowers = function(aux){
+            $scope.messagesFollowers = [];
+            for (var tweetsSeguido in aux.tweets) {
+                if (tweetsSeguido != null) {
+                    $scope.messagesFollowers.push({
+                        "user": aux.name,
+                        "text": aux.tweets[tweetsSeguido].text
+                    });
                 }
             }
             for (var usuariSeguido in aux.following) {
@@ -103,6 +109,6 @@ app.controller("controlador", ["$scope", "chatMessages", "UsersAdd", "Users", "c
                     }
                 }
             }
-        }
+        };
     }
 ]);
