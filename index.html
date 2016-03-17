@@ -28,10 +28,10 @@
                 <div class="col-xs-12">
                     <form class="form-horizontal" ng-submit="login(usernamelogin)">
                         <div class="form-group">
-                            <input ng-model="usernamelogin" type="text" placeholder="Username">
+                            <input ng-model="usernamelogin" type="text" placeholder="Username" class="form-control login">
                         </div>
                         <div class="form-group">
-                            <input value="Connectar-te" type="submit"  >
+                            <input value="Connectar-te" type="submit" class="btn btn-warning" >
                         </div>
                     </form>
                 </div>
@@ -42,16 +42,16 @@
                         <h1>Afegir Usuari</h1>
 
                         <div class="form-group">
-                            <input ng-model="username" ng-change="userid(username)" type="text" placeholder="Username">
+                            <input ng-model="username" ng-change="userid(username)" type="text" placeholder="Username" class="form-control login">
                         </div>
                         <div class="form-group">
-                            <input ng-model="users.name" type="text" placeholder="Nom">
+                            <input ng-model="users.name" type="text" placeholder="Nom" class="form-control login">
                         </div>
                         <div class="form-group">
-                            <input ng-model="users.description" type="text" placeholder="Descripció">
+                            <input ng-model="users.description" type="text" placeholder="Descripció" class="form-control login">
                         </div>
                         <div class="form-group">
-                            <input value="Afegir Usuari" type="submit">
+                            <input value="Afegir Usuari" type="submit" class="btn btn-warning">
                         </div>
                     </form>
 
@@ -65,35 +65,35 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-3">
+                <div id="fix">
                     <div class="row">
                         <div class="col-xs-12">
                             <form ng-submit="addMessage()">
                                 <!--<input ng-model="user" type="text" placeholder="Username">-->
                                 <br>
-                                <input ng-model="message" type="text" ng-change="disableButton()" placeholder="Missatge">
-                                <input value="Afegir Missatge" ng-disabled="disabled" type="submit"  >
+                                <input ng-model="message" type="text" ng-change="disableButton()" placeholder="Missatge" class="form-control">
+                                <input value="Afegir Missatge" ng-disabled="disabled" type="submit" class="btn btn-success"  >
                             </form>
                         </div>
                     </div>
                     <br>
-                    <div class="row">
+                    <div class="row sidebar">
                         <div class="col-xs-12">
                             <form ng-submit="addFollow()">
                                 <select ng-model="newFollower">
                                     <option ng-repeat="user in usuaris" value="{{user.$id}}">{{ user.name }}</option>
                                 </select>
                                 <br>
-                                <input value="Afegir Seguidor" type="submit"  >
+                                <input value="Afegir Seguidor" type="submit" class="btn btn-success" >
                             </form>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row sidebar">
                         <div class="col-xs-12">
 
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row sidebar">
                         <div class="col-xs-12">
                             <ul>
                                 <li ng-repeat="user in followers"><b>{{ user.idUser }}</b></li>
@@ -101,7 +101,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-9">
+                <div class="col-xs-offset-3 col-xs-9">
                     <h1>Els Meus tweets i els dels que segueixo</h1>
                     <ul class="chatbox">
                         <li ng-repeat="message in messagesFollowers"><b>{{ message.user }}</b>: {{ message.text }}</li>

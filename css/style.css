@@ -4,3 +4,11 @@ body{
 .chatbox{
     list-style: none;
 }
+.login{
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+}
+#fix{
+    width: 15%;
+}
